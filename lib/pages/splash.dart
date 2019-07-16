@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class Splash extends StatelessWidget {
-  final mainColorRed = Color(0xffA61414);
-  final mainColorWhite = Color(0xffE3DAC9);
+  final mainColorRed = const Color(0xffA61414);
+  final mainColorWhite = const Color(0xffE3DAC9);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class Splash extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
             color: mainColorWhite,
             onPressed: () {},
-            child: const Text('Save',
+            child: const Text('Go',
                 style: TextStyle(fontSize: 20, color: Color(0xffA61414))),
           ),
         ],
