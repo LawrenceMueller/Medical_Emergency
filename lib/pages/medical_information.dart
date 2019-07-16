@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:medical_emergency/pages/main_menu.dart';
-
 class MedicalInformation extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -10,9 +8,23 @@ class MedicalInformation extends StatefulWidget {
 }
 
 class _MedicalInformation extends State<MedicalInformation> {
+  final formKey = GlobalKey<FormState>();
+
   final mainColorRed = const Color(0xffA61414);
   final mainColorWhite = const Color(0xffE3DAC9);
+
+  final TextEditingController controller = new TextEditingController();
+
+  String name;
   String dropdownValue = 'O+';
+  String allergies;
+  String medications;
+  String conditions;
+  String disabilitiesDisorders;
+  String substanceAbuse;
+  String emergencyName;
+  String emergencyNumber;
+  String emergencyRelation;
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +49,16 @@ class _MedicalInformation extends State<MedicalInformation> {
               Flexible(
                 flex: 11,
                 child: TextField(
+                  controller: controller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Please Type Name Here',
                   ),
+                  onChanged: (String input){
+                    setState(() {
+                     name = input; 
+                    });
+                  },
                 ),
               ),
               Spacer(),
@@ -102,6 +120,11 @@ class _MedicalInformation extends State<MedicalInformation> {
                     border: OutlineInputBorder(),
                     labelText: 'Please Type List of Allergies',
                   ),
+                  onChanged: (String input){
+                    setState(() {
+                     allergies = input; 
+                    });
+                  },
                 ),
               ),
               Spacer(),
@@ -124,6 +147,11 @@ class _MedicalInformation extends State<MedicalInformation> {
                     border: OutlineInputBorder(),
                     labelText: 'Please Type List of Medications',
                   ),
+                  onChanged: (String input){
+                    setState(() {
+                     medications = input; 
+                    });
+                  },
                 ),
               ),
               Spacer(),
@@ -146,6 +174,11 @@ class _MedicalInformation extends State<MedicalInformation> {
                     border: OutlineInputBorder(),
                     labelText: 'Current Conditions',
                   ),
+                  onChanged: (String input){
+                    setState(() {
+                     conditions = input; 
+                    });
+                  },
                 ),
               ),
               Spacer(),
@@ -168,6 +201,11 @@ class _MedicalInformation extends State<MedicalInformation> {
                     border: OutlineInputBorder(),
                     labelText: 'Disabilites / Disorders',
                   ),
+                  onChanged: (String input){
+                    setState(() {
+                     disabilitiesDisorders = input; 
+                    });
+                  },
                 ),
               ),
               Spacer(),
@@ -189,6 +227,11 @@ class _MedicalInformation extends State<MedicalInformation> {
                     border: OutlineInputBorder(),
                     labelText: 'Alchohol, Cocain, Adderall, etc..',
                   ),
+                  onChanged: (String input){
+                    setState(() {
+                     substanceAbuse = input; 
+                    });
+                  },
                 ),
               ),
               Spacer(),
@@ -225,6 +268,11 @@ class _MedicalInformation extends State<MedicalInformation> {
                     border: OutlineInputBorder(),
                     labelText: 'Please Type Name Here',
                   ),
+                  onChanged: (String input){
+                    setState(() {
+                     emergencyName = input; 
+                    });
+                  },
                 ),
               ),
               Spacer(),
@@ -247,6 +295,11 @@ class _MedicalInformation extends State<MedicalInformation> {
                     border: OutlineInputBorder(),
                     labelText: 'Please Type Number Here',
                   ),
+                  onChanged: (String input){
+                    setState(() {
+                     emergencyNumber = input; 
+                    });
+                  },
                 ),
               ),
               Spacer(),
@@ -269,6 +322,11 @@ class _MedicalInformation extends State<MedicalInformation> {
                     border: OutlineInputBorder(),
                     labelText: 'Please Type Relation Status Here',
                   ),
+                  onChanged: (String input){
+                    setState(() {
+                     emergencyRelation = input; 
+                    });
+                  },
                 ),
               ),
               Spacer(),
@@ -278,10 +336,17 @@ class _MedicalInformation extends State<MedicalInformation> {
           RaisedButton(
             padding: EdgeInsets.all(15),
             color: mainColorRed,
-            onPressed: () {Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => MainMenu()));},
+            onPressed: () {
+              debugPrint('$name');
+              debugPrint('$dropdownValue');
+              debugPrint('$allergies');
+              debugPrint('$medications');
+              debugPrint('$conditions');
+              debugPrint('$disabilitiesDisorders');
+              debugPrint('$emergencyName');
+              debugPrint('$emergencyNumber');
+              debugPrint('$emergencyRelation');
+            },
             child: const Text('Save',
                 style: TextStyle(fontSize: 20, color: Colors.white)),
           ),
