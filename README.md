@@ -1,16 +1,5 @@
 # medical_emergency
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+A flutter application that holds information about you that is critical to helathcare proffesionals in the case of a medical emergency.
+The idea is that if needed an EMT, paramedic, etc... Will be able to go to the lock screen of your phone and access this app.
+When they do, they will see valuable information that could save your life.
