@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
+import 'package:medical_emergency/pages/medical_information.dart';
+import 'package:medical_emergency/pages/about.dart';
+import 'package:medical_emergency/pages/support.dart';
+
 class MainMenu extends StatefulWidget {
   createState() => MainMenuState();
 }
@@ -77,7 +81,12 @@ class MainMenuState extends State<MainMenu> {
             height: 60.0,
             child: RaisedButton(
               color: mainColorRed,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => MedicalInformation()));
+              },
               child: const Text('Edit',
                   style: TextStyle(fontSize: 20, color: Color(0xffE3DAC9))),
             ),
@@ -90,7 +99,10 @@ class MainMenuState extends State<MainMenu> {
             height: 60.0,
             child: RaisedButton(
               color: mainColorRed,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => About()));
+              },
               child: const Text('About',
                   style: TextStyle(fontSize: 20, color: Color(0xffE3DAC9))),
             ),
@@ -103,7 +115,10 @@ class MainMenuState extends State<MainMenu> {
             height: 60.0,
             child: RaisedButton(
               color: mainColorRed,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => Support()));
+              },
               child: const Text('Support',
                   style: TextStyle(fontSize: 20, color: Color(0xffE3DAC9))),
             ),

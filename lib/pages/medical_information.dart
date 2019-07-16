@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:medical_emergency/pages/main_menu.dart';
+
 class MedicalInformation extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -276,7 +278,10 @@ class _MedicalInformation extends State<MedicalInformation> {
           RaisedButton(
             padding: EdgeInsets.all(15),
             color: mainColorRed,
-            onPressed: () {},
+            onPressed: () {Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => MainMenu()));},
             child: const Text('Save',
                 style: TextStyle(fontSize: 20, color: Colors.white)),
           ),

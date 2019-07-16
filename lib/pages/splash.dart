@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import 'package:medical_emergency/pages/main_menu.dart';
+
 class Splash extends StatelessWidget {
   final mainColorRed = const Color(0xffA61414);
   final mainColorWhite = const Color(0xffE3DAC9);
@@ -48,7 +50,11 @@ class Splash extends StatelessWidget {
           RaisedButton(
             padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
             color: mainColorWhite,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(
+                builder: (context) => MainMenu()
+              ));
+            },
             child: const Text('Go',
                 style: TextStyle(fontSize: 20, color: Color(0xffA61414))),
           ),
