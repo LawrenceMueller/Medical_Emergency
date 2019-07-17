@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:medical_emergency/pages/main_menu.dart';
+import 'dart:convert';
+import 'dart:async';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:simple_permissions/simple_permissions.dart';
+
 class MedicalInformation extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -8,23 +18,79 @@ class MedicalInformation extends StatefulWidget {
 }
 
 class _MedicalInformation extends State<MedicalInformation> {
-  final formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _allergiesController = TextEditingController();
+  final _medicationsController = TextEditingController();
+  final _conditionsController = TextEditingController();
+  final _disabilitiesDisordersController = TextEditingController();
+  final _substanceAbuseController = TextEditingController();
+  final _emergencyNameController = TextEditingController();
+  final _emergencyNumberController = TextEditingController();
+  final _emergencyRelationController = TextEditingController();
+
+  String name = "test";
+  String dropdownValue = "O+";
+  String allergies = "test";
+  String medications = "test";
+  String conditions = "test";
+  String disabilitiesDisorders = "test";
+  String substanceAbuse = "test";
+  String emergencyName = "test";
+  String emergencyNumber = "test";
+  String emergencyRelation = "test";
+
+  var parsedJson;
 
   final mainColorRed = const Color(0xffA61414);
   final mainColorWhite = const Color(0xffE3DAC9);
 
-  final TextEditingController controller = new TextEditingController();
+  Future<bool> saveDataPreferences(String data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("data", data);
 
-  String name;
-  String dropdownValue = 'O+';
-  String allergies;
-  String medications;
-  String conditions;
-  String disabilitiesDisorders;
-  String substanceAbuse;
-  String emergencyName;
-  String emergencyNumber;
-  String emergencyRelation;
+    return prefs.commit();
+  }
+
+  Future<String> getDataPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String data = prefs.getString("data");
+
+    return data;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDataPreference().then(initialDataFromStorage);
+  }
+
+  initialDataFromStorage(String data) {
+    parsedJson = json.decode(data);
+
+    setState(() {
+      _nameController.text = parsedJson['name'];
+      dropdownValue = parsedJson['blood'];
+      _allergiesController.text = parsedJson['allergies'];
+      _medicationsController.text = parsedJson['medications'];
+      _conditionsController.text = parsedJson['conditions'];
+      _disabilitiesDisordersController.text =
+          parsedJson['disabilitiesDisorders'];
+      _substanceAbuseController.text = parsedJson['substanceAbuse'];
+      _emergencyNameController.text = parsedJson['emergencyName'];
+      _emergencyNumberController.text = parsedJson['emergencyNumber'];
+      _emergencyRelationController.text = parsedJson['emergencyRelation'];
+    });
+
+    name = parsedJson['name'];
+    dropdownValue = parsedJson['blood'];
+    allergies = parsedJson['allergies'];
+    medications = parsedJson['medications'];
+    disabilitiesDisorders = parsedJson['disabilitiesDisorders'];
+    substanceAbuse = parsedJson['substanceAbuse'];
+    emergencyName = parsedJson['emergencyName'];
+    emergencyNumber = parsedJson['emergencyNumber'];
+    emergencyRelation = parsedJson['emergencyRelation'];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +115,14 @@ class _MedicalInformation extends State<MedicalInformation> {
               Flexible(
                 flex: 11,
                 child: TextField(
-                  controller: controller,
+                  controller: _nameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Please Type Name Here',
                   ),
-                  onChanged: (String input){
+                  onChanged: (String input) {
                     setState(() {
-                     name = input; 
+                      name = input;
                     });
                   },
                 ),
@@ -116,13 +182,14 @@ class _MedicalInformation extends State<MedicalInformation> {
               Flexible(
                 flex: 11,
                 child: TextField(
+                  controller: _allergiesController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Please Type List of Allergies',
                   ),
-                  onChanged: (String input){
+                  onChanged: (String input) {
                     setState(() {
-                     allergies = input; 
+                      allergies = input;
                     });
                   },
                 ),
@@ -143,13 +210,14 @@ class _MedicalInformation extends State<MedicalInformation> {
               Flexible(
                 flex: 11,
                 child: TextField(
+                  controller: _medicationsController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Please Type List of Medications',
                   ),
-                  onChanged: (String input){
+                  onChanged: (String input) {
                     setState(() {
-                     medications = input; 
+                      medications = input;
                     });
                   },
                 ),
@@ -170,13 +238,14 @@ class _MedicalInformation extends State<MedicalInformation> {
               Flexible(
                 flex: 11,
                 child: TextField(
+                  controller: _conditionsController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Current Conditions',
                   ),
-                  onChanged: (String input){
+                  onChanged: (String input) {
                     setState(() {
-                     conditions = input; 
+                      conditions = input;
                     });
                   },
                 ),
@@ -197,13 +266,14 @@ class _MedicalInformation extends State<MedicalInformation> {
               Flexible(
                 flex: 11,
                 child: TextField(
+                  controller: _disabilitiesDisordersController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Disabilites / Disorders',
                   ),
-                  onChanged: (String input){
+                  onChanged: (String input) {
                     setState(() {
-                     disabilitiesDisorders = input; 
+                      disabilitiesDisorders = input;
                     });
                   },
                 ),
@@ -223,13 +293,14 @@ class _MedicalInformation extends State<MedicalInformation> {
               Flexible(
                 flex: 11,
                 child: TextField(
+                  controller: _substanceAbuseController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Alchohol, Cocain, Adderall, etc..',
                   ),
-                  onChanged: (String input){
+                  onChanged: (String input) {
                     setState(() {
-                     substanceAbuse = input; 
+                      substanceAbuse = input;
                     });
                   },
                 ),
@@ -264,13 +335,14 @@ class _MedicalInformation extends State<MedicalInformation> {
               Flexible(
                 flex: 11,
                 child: TextField(
+                  controller: _emergencyNameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Please Type Name Here',
                   ),
-                  onChanged: (String input){
+                  onChanged: (String input) {
                     setState(() {
-                     emergencyName = input; 
+                      emergencyName = input;
                     });
                   },
                 ),
@@ -291,13 +363,14 @@ class _MedicalInformation extends State<MedicalInformation> {
               Flexible(
                 flex: 11,
                 child: TextField(
+                  controller: _emergencyNumberController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Please Type Number Here',
                   ),
-                  onChanged: (String input){
+                  onChanged: (String input) {
                     setState(() {
-                     emergencyNumber = input; 
+                      emergencyNumber = input;
                     });
                   },
                 ),
@@ -318,13 +391,14 @@ class _MedicalInformation extends State<MedicalInformation> {
               Flexible(
                 flex: 11,
                 child: TextField(
+                  controller: _emergencyRelationController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Please Type Relation Status Here',
                   ),
-                  onChanged: (String input){
+                  onChanged: (String input) {
                     setState(() {
-                     emergencyRelation = input; 
+                      emergencyRelation = input;
                     });
                   },
                 ),
@@ -337,15 +411,11 @@ class _MedicalInformation extends State<MedicalInformation> {
             padding: EdgeInsets.all(15),
             color: mainColorRed,
             onPressed: () {
-              debugPrint('$name');
-              debugPrint('$dropdownValue');
-              debugPrint('$allergies');
-              debugPrint('$medications');
-              debugPrint('$conditions');
-              debugPrint('$disabilitiesDisorders');
-              debugPrint('$emergencyName');
-              debugPrint('$emergencyNumber');
-              debugPrint('$emergencyRelation');
+              var jsonString =
+                  '{"name" : "$name", "blood" : "$dropdownValue", "allergies" : "$allergies", "medications" : "$medications", "conditions" : "$conditions", "disabilitiesDisorders" : "$disabilitiesDisorders", "substanceAbuse" : "$substanceAbuse", "emergencyName" : "$emergencyName", "emergencyNumber" : "$emergencyNumber", "emergencyRelation" : "$emergencyRelation"}';
+              saveDataPreferences(jsonString);
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => MainMenu()));
             },
             child: const Text('Save',
                 style: TextStyle(fontSize: 20, color: Colors.white)),
